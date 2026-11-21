@@ -1,0 +1,28 @@
+services:
+  php:
+    image: php:8.3-cli
+    container_name: php-aulas
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-aulas
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: aula_php
+      MYSQL_USER: aluno
+      MYSQL_PASSWORD: aluno
+    ports:
+      - "3306:3306"
+    volumes:
+      - dados_mysql:/var/lib/mysql
+
+volumes:
+  dados_mysql:
